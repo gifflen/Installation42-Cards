@@ -18,6 +18,7 @@ class Action(models.Model):
     armor = models.PositiveIntegerField(default=0)
     health = models.PositiveIntegerField(default=0)
     damage = models.PositiveIntegerField(default=0)
+    value = models.PositiveIntegerField(default=0)
     def __unicode__(self):return str(self.name)
 
 class Deck(models.Model):
@@ -27,17 +28,20 @@ class Deck(models.Model):
 class Faction(models.Model):
     name = models.CharField(max_length=50,unique=True)
     description = models.TextField(max_length=200)
+    color = models.TextField(max_length=6)
     def __unicode__(self):return str(self.name)
 
 class Ability(models.Model):
     name = models.CharField(max_length=50,unique=True)
     description = models.TextField(max_length=100)
     action = models.ManyToManyField('Action')
+    value_adjustment = models.IntegerField(default=0)
     def __unicode__(self):return str(self.name)
     #TODO: Total stats from all selected abilities
     def total_damage(self): return 0
     def total_healing(self): return 0
     def total_armor(self): return 0
+    def total_value(self): return 0
 
 class Card(models.Model):
     name = models.CharField(max_length=50,unique=True)
