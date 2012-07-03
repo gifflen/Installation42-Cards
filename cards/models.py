@@ -29,7 +29,7 @@ class Deck(models.Model):
 class Faction(models.Model):
     name = models.CharField(max_length=50,unique=True)
     description = models.TextField(max_length=200)
-    color = models.TextField(max_length=6)
+    color = models.CharField(max_length=6)
     def __unicode__(self):return str(self.name)
 
 class Ability(models.Model):
