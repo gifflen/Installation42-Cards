@@ -44,7 +44,7 @@ class Ability(models.Model):
         return self.actions.aggregate(Sum('damage'))['damage__sum']
 
     @property
-    def total_healing(self):
+    def total_health(self):
         return self.actions.aggregate(Sum('health'))['health__sum']
 
     @property
