@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Sum
 
 #Attack, Defense etc
 class ActionType(models.Model):
@@ -34,14 +35,25 @@ class Faction(models.Model):
 class Ability(models.Model):
     name = models.CharField(max_length=50,unique=True)
     description = models.TextField(max_length=100)
-    action = models.ManyToManyField('Action')
+    actions = models.ManyToManyField('Action')
     value_adjustment = models.IntegerField(default=0)
     def __unicode__(self):return str(self.name)
-    #TODO: Total stats from all selected abilities
-    def total_damage(self): return 0
-    def total_healing(self): return 0
-    def total_armor(self): return 0
-    def total_value(self): return 0
+
+    @property
+    def total_damage(self):
+        return self.actions.aggregate(Sum('damage'))['damage_sum']
+
+    @property
+    def total_healing(self):
+        return self.actions.aggregate(Sum('healing'))['healing_sum']
+
+    @property
+    def total_armor(self):
+        return self.actions.aggregate(Sum('armor'))['armor_sum']
+
+    @property
+    def total_value(self):
+        return self.actions.aggregate(Sum('value'))['value_sum']
 
 class Card(models.Model):
     name = models.CharField(max_length=50,unique=True)
