@@ -12,6 +12,8 @@ class ActionType(models.Model):
     """
     name = models.CharField(max_length=10,unique=True)
     def __unicode__(self):return str(self.name)
+    class Meta:
+        ordering = ['name']
 
 #AOE, SELF, TARGETED, MELEE, L+R or L/R GLOBAL
 class ActionTarget(models.Model):
@@ -27,6 +29,8 @@ class ActionTarget(models.Model):
     name = models.CharField(max_length=10,unique=True)
     description = models.TextField(max_length=100)
     def __unicode__(self):return str(self.name)
+    class Meta:
+        ordering = ['name']
 
 class Action(models.Model):
     """
@@ -51,6 +55,8 @@ class Action(models.Model):
     damage = models.PositiveIntegerField(default=0)
     value = models.PositiveIntegerField(default=0)
     def __unicode__(self):return str(self.name)
+    class Meta:
+        ordering = ['name']
 
 class Deck(models.Model):
     """
@@ -63,6 +69,8 @@ class Deck(models.Model):
     """
     name = models.CharField(max_length=50)
     def __unicode__(self):return str(self.name)
+    class Meta:
+        ordering = ['name']
 
 class Faction(models.Model):
     """
@@ -79,6 +87,8 @@ class Faction(models.Model):
     description = models.TextField(max_length=200)
     color = models.CharField(max_length=10)
     def __unicode__(self):return str(self.name)
+    class Meta:
+        ordering = ['name']
 
 class Ability(models.Model):
     """
@@ -98,6 +108,9 @@ class Ability(models.Model):
     actions = models.ManyToManyField('Action')
     value_adj = models.IntegerField(default=0)
     def __unicode__(self):return str(self.name)
+    class Meta:
+        ordering = ['name']
+        verbose_name_plural ="Abilities"
 
     @property
     def total_damage(self):
@@ -149,6 +162,8 @@ class Card(models.Model):
     faction = models.ForeignKey('Faction')
     deck = models.ForeignKey('Deck')
     def __unicode__(self):return str(self.name)
+    class Meta:
+        ordering = ['name']
     @property
     def total_value(self):
         """  Sums total card value based on abilities on the card
