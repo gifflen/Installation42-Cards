@@ -10,12 +10,11 @@ class ActionType(models.Model):
 
         name    --  Name of the action type. Ex. Attack
     """
-    name = models.CharField(max_length=10,unique=True)
+    name = models.CharField(max_length=10,unique=True,help_text="Name of the type of action. Ex. Attack")
     def __unicode__(self):return str(self.name)
     class Meta:
         ordering = ['name']
 
-#AOE, SELF, TARGETED, MELEE, L+R or L/R GLOBAL
 class ActionTarget(models.Model):
     """
         ActionTarget Model.
