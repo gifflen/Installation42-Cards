@@ -41,19 +41,19 @@ class Ability(models.Model):
 
     @property
     def total_damage(self):
-        return self.actions.aggregate(Sum('damage'))['damage_sum']
+        return self.actions.aggregate(Sum('damage'))['damage__sum']
 
     @property
     def total_healing(self):
-        return self.actions.aggregate(Sum('healing'))['healing_sum']
+        return self.actions.aggregate(Sum('healing'))['healing)__sum']
 
     @property
     def total_armor(self):
-        return self.actions.aggregate(Sum('armor'))['armor_sum']
+        return self.actions.aggregate(Sum('armor'))['armor__sum']
 
     @property
     def total_value(self):
-        return self.actions.aggregate(Sum('value'))['value_sum']
+        return self.actions.aggregate(Sum('value'))['value__sum']
 
 class Card(models.Model):
     name = models.CharField(max_length=50,unique=True)
