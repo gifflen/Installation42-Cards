@@ -10,7 +10,7 @@ class ActionType(models.Model):
 
         name    --  Name of the action type. Ex. Attack
     """
-    name = models.CharField(max_length=10,unique=True,help_text="Name of the type of action. Ex. Attack")
+    name = models.CharField(max_length=10,unique=True)
     def __unicode__(self):return str(self.name)
     class Meta:
         ordering = ['name']
